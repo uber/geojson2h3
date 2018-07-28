@@ -1,0 +1,56 @@
+{
+  "name": "geojson2h3",
+  "description": "Conversion utilities between H3 indexes and GeoJSON",
+  "version": "1.0.0",
+  "author": "Nick Rabinowitz <nickr@uber.com>",
+  "keywords": [
+    "h3",
+    "hexagon",
+    "geojson"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/uber/geojson2h3.git"
+  },
+  "main": "index.js",
+  "es2015": "lib/geojson2h3.js",
+  "dependencies": {
+    "@turf/boolean-clockwise": "^6.0.1",
+    "@turf/boolean-point-in-polygon": "^6.0.1",
+    "h3-js": "^3.0.1"
+  },
+  "devDependencies": {
+    "buble": "^0.19.3",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-uber-es2015": "^3.1.2",
+    "eslint-plugin-prettier": "^2.6.0",
+    "faucet": "0.0.1",
+    "istanbul": "^0.4.3",
+    "jsdoc-to-markdown": "^4.0.1",
+    "prettier": "^1.12.1",
+    "tape": "^4.8.0"
+  },
+  "scripts": {
+    "lint": "eslint src test",
+    "cover": "istanbul cover --report cobertura --report html -- test/index.js",
+    "test": "yarn run dist-test && yarn lint && yarn run test-es6 && yarn run test-dist",
+    "test-raw": "node test/index.js",
+    "test-es6": "yarn test-raw | faucet",
+    "test-dist": "node dist/test/index.js | faucet",
+    "check-prettier": "yarn prettier && git diff --exit-code",
+    "check-docs": "yarn build-docs && git diff --exit-code",
+    "build-docs": "jsdoc2md --global-index-format grouped --separators --template doc-files/README.md.tmpl src/geojson2h3.js > README.md",
+    "dist": "yarn run dist-clean && buble -i src -o dist/src",
+    "dist-clean": "rm -rf dist && mkdir dist",
+    "dist-test": "yarn run dist && buble -i test -o dist/test",
+    "prepublish": "yarn run dist",
+    "prettier": "prettier --write --single-quote --no-bracket-spacing --print-width=100 'src/**/*.js' 'test/**/*.js'"
+  },
+  "engines": {
+    "node": ">=4",
+    "npm": ">=3",
+    "yarn": ">=1.3.0"
+  }
+}

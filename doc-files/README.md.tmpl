@@ -1,0 +1,67 @@
+# geojson2h3
+
+The `geojson2h3` library includes a set of utilities for conversion between GeoJSON polygons and [H3 hexagon indexes](https://uber.github.io/h3), using [h3-js](https://github.com/uber/h3-js).
+
+-   Post **bug reports or feature requests** to the [Github Issues page](https://github.com/uber/geojson2h3/issues)
+-   Ask **questions** by posting to the [H3 tag on StackOverflow](https://stackoverflow.com/questions/tagged/h3)
+
+## Installation
+
+```
+npm install geojson2h3
+```
+
+## Example Usage
+
+```
+import geojson2h3 from 'geojson2h3';
+
+const polygon = {
+  type: 'Feature',
+  geometry: {
+    type: 'Polygon',
+    coordinates: [[
+      [-122.47485823276713, 37.85878356045377],
+      [-122.47504834087829, 37.86196795698972],
+      [-122.47845104316997, 37.86010614563313],
+      [-122.47485823276713, 37.85878356045377]
+    ]]
+  }
+};
+
+const hexagons = geojson2h3.featureToH3Set(polygon, 10);
+// -> ['8a2830855047fff', '8a2830855077fff', '8a283085505ffff', '8a283085506ffff']
+
+const feature = geojson2h3.h3SetToFeature(hexagons);
+// -> {type: 'Feature', properties: {}, geometry: {type: 'Polygon', coordinates: [...]}}
+```
+
+## API Reference
+
+{{>main}}
+
+## Development
+
+The `geojson2h3` library uses `yarn` as the preferred package manager. To install the dev dependencies, just run:
+
+    yarn
+
+To run the tests in both native ES6 (requires Node >= 6) and transpiled ES5:
+
+    yarn test
+
+To format the code:
+
+    yarn prettier
+
+To rebuild the API documentation in the README file:
+
+    yarn build-docs
+
+## Contributing
+
+Pull requests and [Github issues](https://github.com/uber/geojson2h3/issues) are welcome. Please include tests for new work, and keep the library test coverage at 100%. Before we can merge your changes, you must agree to the [Uber Contributor License Agreement](http://cla-assistant.io/uber/geojson2h3).
+
+## Legal and Licensing
+
+The `geojson2h3` library is licensed under the [Apache 2.0 License](https://github.com/uber/geojson2h3/blob/master/LICENSE).
