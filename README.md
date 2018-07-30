@@ -1,5 +1,7 @@
 # geojson2h3
 
+[![Build Status](https://travis-ci.org/uber/geojson2h3.svg?branch=master)](https://travis-ci.org/uber/geojson2h3) [![Coverage Status](https://coveralls.io/repos/github/uber/geojson2h3/badge.svg?branch=master)](https://coveralls.io/github/uber/geojson2h3?branch=master)
+
 The `geojson2h3` library includes a set of utilities for conversion between GeoJSON polygons and [H3 hexagon indexes](https://uber.github.io/h3), using [h3-js](https://github.com/uber/h3-js).
 
 -   Post **bug reports or feature requests** to the [Github Issues page](https://github.com/uber/geojson2h3/issues)
@@ -93,6 +95,7 @@ Convert a single H3 hexagon to a `Polygon` feature
 Convert a set of hexagons to a GeoJSON `Feature` with the set outline(s). The
 feature's geometry type will be either `Polygon` or `MultiPolygon` depending on
 the number of outlines required for the set.
+
 ![h3SetToFeature](./doc-files/h3SetToFeature.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
@@ -111,6 +114,7 @@ the number of outlines required for the set.
 ### geojson2h3.h3SetToMultiPolygonFeature(hexagons, [properties]) ⇒ <code>Feature</code>
 Convert a set of hexagons to a GeoJSON `MultiPolygon` feature with the
 outlines of each individual hexagon.
+
 ![h3SetToMultiPolygonFeature](./doc-files/h3SetToFeatureCollection.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
@@ -129,6 +133,7 @@ outlines of each individual hexagon.
 ### geojson2h3.h3SetToFeatureCollection(hexagons, [getProperties]) ⇒ <code>FeatureCollection</code>
 Convert a set of hexagons to a GeoJSON `FeatureCollection` with each hexagon
 in a separate `Polygon` feature with optional properties.
+
 ![h3SetToFeatureCollection](./doc-files/h3SetToFeatureCollection.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  

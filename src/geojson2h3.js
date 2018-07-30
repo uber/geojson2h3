@@ -192,6 +192,7 @@ function h3ToFeature(hexAddress, properties = {}) {
  * Convert a set of hexagons to a GeoJSON `Feature` with the set outline(s). The
  * feature's geometry type will be either `Polygon` or `MultiPolygon` depending on
  * the number of outlines required for the set.
+ *
  * ![h3SetToFeature](./doc-files/h3SetToFeature.png)
  * @static
  * @param  {String[]} hexagons   Hexagon addresses
@@ -218,6 +219,7 @@ function h3SetToFeature(hexagons, properties = {}) {
 /**
  * Convert a set of hexagons to a GeoJSON `MultiPolygon` feature with the
  * outlines of each individual hexagon.
+ *
  * ![h3SetToMultiPolygonFeature](./doc-files/h3SetToFeatureCollection.png)
  * @static
  * @param  {String[]} hexagons   Hexagon addresses
@@ -242,6 +244,7 @@ function h3SetToMultiPolygonFeature(hexagons, properties = {}) {
 /**
  * Convert a set of hexagons to a GeoJSON `FeatureCollection` with each hexagon
  * in a separate `Polygon` feature with optional properties.
+ *
  * ![h3SetToFeatureCollection](./doc-files/h3SetToFeatureCollection.png)
  * @static
  * @param  {String[]} hexagons  Hexagon addresses
