@@ -93,6 +93,7 @@ Convert a single H3 hexagon to a `Polygon` feature
 Convert a set of hexagons to a GeoJSON `Feature` with the set outline(s). The
 feature's geometry type will be either `Polygon` or `MultiPolygon` depending on
 the number of outlines required for the set.
+
 ![h3SetToFeature](./doc-files/h3SetToFeature.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
@@ -111,6 +112,7 @@ the number of outlines required for the set.
 ### geojson2h3.h3SetToMultiPolygonFeature(hexagons, [properties]) ⇒ <code>Feature</code>
 Convert a set of hexagons to a GeoJSON `MultiPolygon` feature with the
 outlines of each individual hexagon.
+
 ![h3SetToMultiPolygonFeature](./doc-files/h3SetToFeatureCollection.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
@@ -129,6 +131,7 @@ outlines of each individual hexagon.
 ### geojson2h3.h3SetToFeatureCollection(hexagons, [getProperties]) ⇒ <code>FeatureCollection</code>
 Convert a set of hexagons to a GeoJSON `FeatureCollection` with each hexagon
 in a separate `Polygon` feature with optional properties.
+
 ![h3SetToFeatureCollection](./doc-files/h3SetToFeatureCollection.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
