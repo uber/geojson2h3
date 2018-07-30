@@ -34,7 +34,7 @@
   },
   "scripts": {
     "lint": "eslint src test",
-    "cover": "istanbul cover --report cobertura --report html -- test/index.js",
+    "cover": "istanbul cover --report lcov --report html -- test/index.js",
     "test": "yarn run dist-test && yarn lint && yarn run test-es6 && yarn run test-dist",
     "test-raw": "node test/index.js",
     "test-es6": "yarn test-raw | faucet",
