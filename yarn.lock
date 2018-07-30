@@ -736,8 +736,8 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.9:
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
 h3-js@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/h3-js/-/h3-js-3.0.1.tgz#f6021b72550e5004050bcd98a80befa17dc5f722"
+  version "3.0.2"
+  resolved "https://registry.npmjs.org/h3-js/-/h3-js-3.0.2.tgz#99a7d3251a6ffb21d8d885f1e6ecf2fd96248f69"
 
 handlebars@^4.0.1, handlebars@^4.0.11:
   version "4.0.11"
