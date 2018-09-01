@@ -167,7 +167,7 @@ test('Symmetrical - One hexagon', assert => {
             coordinates: [
                 // Note that this is a little brittle; iterating from any
                 // starting vertex would be correct
-                [...vertices.slice(2, 6), ...vertices.slice(0, 3)]
+                [...vertices]
             ]
         }
     };
@@ -185,6 +185,8 @@ test('Symmetrical - Two hexagons', assert => {
             type: 'Polygon',
             coordinates: [
                 [
+                    [-122.42778275313196, 37.775989518837726],
+                    [-122.42652309807923, 37.77448508566524],
                     [-122.42419231791126, 37.7746633251758],
                     [-122.42312112449315, 37.776346021077586],
                     [-122.42438078060647, 37.77785047757876],
@@ -193,9 +195,7 @@ test('Symmetrical - Two hexagons', assert => {
                     [-122.4303021418057, 37.778998255103545],
                     [-122.4313731964829, 37.77731555898803],
                     [-122.43011350268344, 37.77581120251896],
-                    [-122.42778275313196, 37.775989518837726],
-                    [-122.42652309807923, 37.77448508566524],
-                    [-122.42419231791126, 37.7746633251758]
+                    [-122.42778275313196, 37.775989518837726]
                 ]
             ]
         }
@@ -539,14 +539,19 @@ test('h3SetToFeature - multi donut', assert => {
     assert.end();
 });
 
-test('h3SetToFeature - nested donut throws', assert => {
+test('h3SetToFeature - nested donut', assert => {
     const middle = '89283082877ffff';
     const hexagons = h3.hexRing(middle, 1).concat(h3.hexRing(middle, 3));
-    assert.throws(
-        () => h3SetToFeature(hexagons),
-        /Unsupported MultiPolygon topology/,
-        'throws expected error'
-    );
+    const feature = h3SetToFeature(hexagons);
+    const coords = feature.geometry.coordinates;
+
+    assert.strictEqual(coords.length, 2, 'expected polygon count');
+    assert.strictEqual(coords[0].length, 2, 'expected loop count for p1');
+    assert.strictEqual(coords[1].length, 2, 'expected loop count for p2');
+    assert.strictEqual(coords[0][0].length, 6 * 3 + 1, 'expected outer coord count p1');
+    assert.strictEqual(coords[0][1].length, 7, 'expected inner coord count p1');
+    assert.strictEqual(coords[1][0].length, 6 * 7 + 1, 'expected outer coord count p2');
+    assert.strictEqual(coords[1][1].length, 6 * 5 + 1, 'expected inner coord count p2');
 
     assert.end();
 });

@@ -19,8 +19,6 @@
  */
 
 const h3 = require('h3-js');
-const inside = require('@turf/boolean-point-in-polygon').default;
-const isClockwise = require('@turf/boolean-clockwise').default;
 
 const FEATURE = 'Feature';
 const FEATURE_COLLECTION = 'FeatureCollection';
@@ -49,69 +47,6 @@ function flatten(arrays) {
         }
     }
     return out;
-}
-
-/**
- * The current H3 algorithm returns a single array of loops (as for a GeoJSON Polygon),
- * some external and some internal (holes). This format may be considered invalid
- * for some consumers, and doesn't render correctly in mapbox-gl.
- *
- * For now, identify outer and inner loops here and format into correct MultiPolygons. Note
- * that the method used here to allocate holes to their containing loops will not work for
- * certain complex shapes (e.g. nested donuts), but should be sufficient for most real-world
- * use cases.
- *
- * TODO: This is a workaround for https://github.com/uber/h3/issues/53 - remove when closed
- * @private
- * @param  {Array[]} polygons   Arrays of loops
- * @return {Array[]}            Spec-conforming MultiPolygon
- */
-function normalizeMultiPolygon(polygons) {
-    const normalized = [];
-    const innerLoops = [];
-    const testPolygons = [];
-    // Split into outer/inner loops
-    polygons.forEach(polygon => {
-        polygon.forEach(loop => {
-            // Inner loops are always clockwise
-            if (isClockwise(loop)) {
-                // Push to temp inner loop array
-                innerLoops.push(loop);
-            } else {
-                // Push to output as the first loop in a new polygon
-                normalized.push([loop]);
-                // also include in the test set for the inner loop allocation,
-                // normalizing to GeoJSON for turf
-                testPolygons.push({
-                    type: 'Feature',
-                    geometry: {type: 'Polygon', coordinates: [loop]}
-                });
-            }
-        });
-    });
-    // Allocate inner loops to outer loops
-    innerLoops.forEach(loop => {
-        // No overlaps, so a single test point is sufficient
-        const testPoint = loop[0];
-        let allocated = false;
-        for (let i = 0; i < testPolygons.length; i++) {
-            if (inside(testPoint, testPolygons[i])) {
-                if (allocated) {
-                    // This case is possible with valid input if you have nested donuts
-                    throw new Error('Unsupported MultiPolygon topology');
-                }
-                normalized[i].push(loop);
-                allocated = true;
-            }
-        }
-        /* istanbul ignore if */
-        if (!allocated) {
-            // This case should not be possible with valid input
-            throw new Error('Failed to allocate inner loop');
-        }
-    });
-    // The normalized version now has one outer loop per polygon, then any inner loops
-    return normalized;
 }
 
 /**
@@ -200,7 +135,7 @@ function h3ToFeature(hexAddress, properties = {}) {
  * @return {Feature}             GeoJSON Feature object
  */
 function h3SetToFeature(hexagons, properties = {}) {
-    const polygons = normalizeMultiPolygon(h3.h3SetToMultiPolygon(hexagons, true));
+    const polygons = h3.h3SetToMultiPolygon(hexagons, true);
     // See if we can unwrap to a simple Polygon.
     const isMultiPolygon = polygons.length > 1;
     const type = isMultiPolygon ? MULTI_POLYGON : POLYGON;
