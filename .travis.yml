@@ -3,6 +3,7 @@ node_js:
   - '6'
 before_script:
   - yarn run dist-test
+  - "curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install.sh | sudo bash"
 script:
   - yarn lint
   - yarn run test-es6
@@ -10,6 +11,7 @@ script:
   - yarn run check-prettier
   - yarn run check-docs
   - yarn cover
+  - fossa
 after_success:
   - npm install -g coveralls
   - cat coverage/lcov.info | coveralls
