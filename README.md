@@ -1,6 +1,6 @@
 # geojson2h3
 
-[![Build Status](https://travis-ci.org/uber/geojson2h3.svg?branch=master)](https://travis-ci.org/uber/geojson2h3) [![Coverage Status](https://coveralls.io/repos/github/uber/geojson2h3/badge.svg?branch=master)](https://coveralls.io/github/uber/geojson2h3?branch=master)
+[![Build Status](https://travis-ci.com/uber/geojson2h3.svg?branch=master)](https://travis-ci.com/uber/geojson2h3) [![Coverage Status](https://coveralls.io/repos/github/uber/geojson2h3/badge.svg?branch=master)](https://coveralls.io/github/uber/geojson2h3?branch=master)
 
 The `geojson2h3` library includes a set of utilities for conversion between GeoJSON polygons and [H3 hexagon indexes](https://uber.github.io/h3), using [h3-js](https://github.com/uber/h3-js).
 
