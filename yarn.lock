@@ -718,9 +718,10 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.9:
   version "4.1.11"
   resolved "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-h3-js@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/h3-js/-/h3-js-3.1.1.tgz#5e62994c46ee4053327cd437f4fde4fe3430bf3d"
+h3-js@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/h3-js/-/h3-js-3.6.1.tgz#81ee5c2ba2d35889648dfa0b5c92fcf3f7bacd80"
+  integrity sha512-KsZzS7ozL4V4AQTit4mBx6KcxsJrV5ffWJtvmpG6crpwIb0iuwkwbMbEm5Ftve94qVx12LcfMWbeHK6LdMTGCw==
 
 handlebars@^4.0.1, handlebars@^4.0.11:
   version "4.0.11"

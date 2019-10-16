@@ -16,7 +16,7 @@
   "main": "index.js",
   "es2015": "lib/geojson2h3.js",
   "dependencies": {
-    "h3-js": "^3.1.1"
+    "h3-js": "^3.6.1"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
