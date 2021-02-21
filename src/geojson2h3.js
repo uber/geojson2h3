@@ -69,10 +69,12 @@ function featureCollectionToH3Set(featureCollection, resolution) {
 // Public API functions
 
 /**
- * Convert a GeoJSON feature to a set of hexagons. Only hexagons whose centers
- * fall within the feature will be included. Note that conversion from GeoJSON
+ * Convert a GeoJSON feature to a set of hexagons. *Only hexagons whose centers
+ * fall within the feature will be included.* Note that conversion from GeoJSON
  * is lossy; the resulting hexagon set only approximately describes the original
  * shape, at a level of precision determined by the hexagon resolution.
+ * 
+ * ![featureToH3Set](./doc-files/featureToH3Set.png)
  * @static
  * @param  {Object} feature     Input GeoJSON: type must be either `Feature` or
  *                              `FeatureCollection`, and geometry type must be
