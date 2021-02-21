@@ -73,7 +73,7 @@ function featureCollectionToH3Set(featureCollection, resolution) {
  * fall within the feature will be included.* Note that conversion from GeoJSON
  * is lossy; the resulting hexagon set only approximately describes the original
  * shape, at a level of precision determined by the hexagon resolution.
- * 
+ *
  * ![featureToH3Set](./doc-files/featureToH3Set.png)
  * @static
  * @param  {Object} feature     Input GeoJSON: type must be either `Feature` or

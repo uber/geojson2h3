@@ -9,7 +9,7 @@ The `geojson2h3` library includes a set of utilities for conversion between GeoJ
 
 ## Installation
 
-```bash
+```
 npm install geojson2h3
 ```
 
