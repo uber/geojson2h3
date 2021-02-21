@@ -42,6 +42,7 @@
     "test-raw": "node test/index.js",
     "test-es6": "yarn test-raw | faucet",
     "test-dist": "node dist/test/index.js | faucet",
+    "test-ci": "yarn lint && yarn run test-es6 && yarn run test-dist && yarn run check-prettier && yarn run check-docs && yarn run check-types",
     "check-prettier": "yarn prettier && git diff --exit-code",
     "check-types": "tsc --strict --noEmit types.d.ts",
     "check-docs": "yarn build-docs && git diff --exit-code",
