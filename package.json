@@ -15,10 +15,12 @@
   },
   "main": "index.js",
   "es2015": "lib/geojson2h3.js",
+  "types": "dist/types.d.ts",
   "dependencies": {
     "h3-js": "^3.6.1"
   },
   "devDependencies": {
+    "@types/geojson": "^7946.0.7",
     "benchmark": "^2.1.4",
     "buble": "^0.19.3",
     "eslint": "^4.19.1",
@@ -29,7 +31,8 @@
     "istanbul": "^0.4.3",
     "jsdoc-to-markdown": "^4.0.1",
     "prettier": "^1.12.1",
-    "tape": "^4.8.0"
+    "tape": "^4.8.0",
+    "typescript": "^4.1.5"
   },
   "scripts": {
     "lint": "eslint src test",
@@ -39,14 +42,15 @@
     "test-es6": "yarn test-raw | faucet",
     "test-dist": "node dist/test/index.js | faucet",
     "check-prettier": "yarn prettier && git diff --exit-code",
+    "check-tsd": "tsc --strict --noEmit types.d.ts",
     "check-docs": "yarn build-docs && git diff --exit-code",
     "build-docs": "jsdoc2md --global-index-format grouped --separators --template doc-files/README.md.tmpl src/geojson2h3.js > README.md",
-    "dist": "yarn dist-clean && buble -i src -o dist/src",
+    "dist": "yarn dist-clean && buble -i src -o dist/src && cp types.d.ts dist",
     "dist-clean": "rm -rf dist && mkdir dist",
     "dist-test": "yarn dist && buble -i test -o dist/test",
     "benchmarks": "yarn dist-test && node dist/test/benchmarks.js",
     "prepublish": "yarn dist",
-    "prettier": "prettier --write --single-quote --no-bracket-spacing --print-width=100 'src/**/*.js' 'test/**/*.js'"
+    "prettier": "prettier --write --single-quote --no-bracket-spacing --print-width=100 'src/**/*.js' 'test/**/*.js' '*.d.ts'"
   },
   "engines": {
     "node": ">=4",
