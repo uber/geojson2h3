@@ -29,7 +29,8 @@
     "eslint-plugin-prettier": "^2.6.0",
     "faucet": "^0.0.1",
     "istanbul": "^0.4.3",
-    "jsdoc-to-markdown": "^4.0.1",
+    "jsdoc": "^3.6.6",
+    "jsdoc-to-markdown": "^6.0.1",
     "prettier": "^1.12.1",
     "tape": "^4.8.0",
     "typescript": "^4.1.5"
@@ -44,7 +45,7 @@
     "check-prettier": "yarn prettier && git diff --exit-code",
     "check-tsd": "tsc --strict --noEmit types.d.ts",
     "check-docs": "yarn build-docs && git diff --exit-code",
-    "build-docs": "jsdoc2md --global-index-format grouped --separators --template doc-files/README.md.tmpl src/geojson2h3.js > README.md",
+    "build-docs": "jsdoc2md --no-cache --global-index-format grouped --separators --template doc-files/README.md.tmpl src/geojson2h3.js > README.md",
     "dist": "yarn dist-clean && buble -i src -o dist/src && cp types.d.ts dist",
     "dist-clean": "rm -rf dist && mkdir dist",
     "dist-test": "yarn dist && buble -i test -o dist/test",
