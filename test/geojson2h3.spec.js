@@ -134,7 +134,7 @@ function assertSymmetrical(assert, feature, hexagons) {
     );
     assertEqualFeatures(
         assert,
-        h3SetToFeature(featureToH3Set(feature, DEFAULT_RES)),
+        h3SetToFeature(featureToH3Set(feature, DEFAULT_RES).sort()),
         feature,
         'h3SetToFeature round-trip matches expected'
     );
@@ -274,8 +274,8 @@ test('featureToH3Set - MultiPolygon, contiguous', assert => {
     ];
 
     assert.deepEqual(
-        featureToH3Set(feature, DEFAULT_RES),
-        hexagons,
+        featureToH3Set(feature, DEFAULT_RES).sort(),
+        hexagons.sort(),
         'featureToH3Set matches expected'
     );
 
@@ -301,8 +301,8 @@ test('featureToH3Set - MultiPolygon, non-contiguous', assert => {
     ];
 
     assert.deepEqual(
-        featureToH3Set(feature, DEFAULT_RES),
-        hexagons,
+        featureToH3Set(feature, DEFAULT_RES).sort(),
+        hexagons.sort(),
         'featureToH3Set matches expected'
     );
 
@@ -341,8 +341,8 @@ test('featureToH3Set - FeatureCollection', assert => {
     ];
 
     assert.deepEqual(
-        featureToH3Set(feature, DEFAULT_RES),
-        hexagons,
+        featureToH3Set(feature, DEFAULT_RES).sort(),
+        hexagons.sort(),
         'featureToH3Set matches expected'
     );
 
