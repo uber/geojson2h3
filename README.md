@@ -15,7 +15,7 @@ npm install geojson2h3
 
 ## Example Usage
 
-```
+```javascript
 import geojson2h3 from 'geojson2h3';
 
 const polygon = {
@@ -57,10 +57,12 @@ const feature = geojson2h3.h3SetToFeature(hexagons);
 <a name="module_geojson2h3.featureToH3Set"></a>
 
 ### geojson2h3.featureToH3Set(feature, resolution) ⇒ <code>Array.&lt;String&gt;</code>
-Convert a GeoJSON feature to a set of hexagons. Only hexagons whose centers
-fall within the feature will be included. Note that conversion from GeoJSON
+Convert a GeoJSON feature to a set of hexagons. *Only hexagons whose centers
+fall within the feature will be included.* Note that conversion from GeoJSON
 is lossy; the resulting hexagon set only approximately describes the original
 shape, at a level of precision determined by the hexagon resolution.
+
+![featureToH3Set](./doc-files/featureToH3Set.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
 **Returns**: <code>Array.&lt;String&gt;</code> - H3 indexes  
