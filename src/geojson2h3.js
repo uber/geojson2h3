@@ -109,12 +109,12 @@ function featureToH3Set(feature, resolution) {
  * @param  {Object} [properties] Optional feature properties
  * @return {Feature}             GeoJSON Feature object
  */
-function h3ToFeature(hexAddress, properties = {}) {
+function h3ToFeature(h3Index, properties = {}) {
     // Wrap in an array for a single-loop polygon
-    const coordinates = [h3.h3ToGeoBoundary(hexAddress, true)];
+    const coordinates = [h3.h3ToGeoBoundary(h3Index, true)];
     return {
         type: FEATURE,
-        id: hexAddress,
+        id: h3Index,
         properties,
         geometry: {
             type: POLYGON,
@@ -162,9 +162,9 @@ function h3SetToFeature(hexagons, properties = {}) {
  * @return {Feature}             GeoJSON Feature object
  */
 function h3SetToMultiPolygonFeature(hexagons, properties = {}) {
-    const coordinates = hexagons.map(hexAddress =>
+    const coordinates = hexagons.map(h3Index =>
         // Wrap in an array for a single-loop polygon
-        [h3.h3ToGeoBoundary(hexAddress, {geoJson: true})]
+        [h3.h3ToGeoBoundary(h3Index, {geoJson: true})]
     );
     return {
         type: FEATURE,
@@ -184,15 +184,15 @@ function h3SetToMultiPolygonFeature(hexagons, properties = {}) {
  * @static
  * @param  {String[]} hexagons  Hexagon addresses
  * @param  {Function} [getProperties] Optional function returning properties
- *                                    for a hexagon: f(hexAddress) => Object
+ *                                    for a hexagon: f(h3Index) => Object
  * @return {FeatureCollection}        GeoJSON FeatureCollection object
  */
 function h3SetToFeatureCollection(hexagons, getProperties) {
     const features = [];
     for (let i = 0; i < hexagons.length; i++) {
-        const hexAddress = hexagons[i];
-        const properties = getProperties ? getProperties(hexAddress) : {};
-        features.push(h3ToFeature(hexAddress, properties));
+        const h3Index = hexagons[i];
+        const properties = getProperties ? getProperties(h3Index) : {};
+        features.push(h3ToFeature(h3Index, properties));
     }
     return {
         type: FEATURE_COLLECTION,

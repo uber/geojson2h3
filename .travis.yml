@@ -1,14 +1,12 @@
 language: node_js
 node_js:
-  - '6'
+  - '10'
+  - '12'
+  - '14'
 before_script:
   - yarn run dist-test
 script:
-  - yarn lint
-  - yarn run test-es6
-  - yarn run test-dist
-  - yarn run check-prettier
-  - yarn run check-docs
+  - yarn test-ci
   - yarn cover
 after_success:
   - npm install -g coveralls

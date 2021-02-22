@@ -142,7 +142,7 @@ in a separate `Polygon` feature with optional properties.
 | Param | Type | Description |
 | --- | --- | --- |
 | hexagons | <code>Array.&lt;String&gt;</code> | Hexagon addresses |
-| [getProperties] | <code>function</code> | Optional function returning properties                                    for a hexagon: f(hexAddress) => Object |
+| [getProperties] | <code>function</code> | Optional function returning properties                                    for a hexagon: f(h3Index) => Object |
 
 
 * * *
