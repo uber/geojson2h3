@@ -1,7 +1,7 @@
 {
   "name": "geojson2h3",
   "description": "Conversion utilities between H3 indexes and GeoJSON",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "Nick Rabinowitz <nickr@uber.com>",
   "keywords": [
     "h3",
