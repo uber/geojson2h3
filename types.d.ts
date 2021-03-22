@@ -12,14 +12,14 @@ declare module 'geojson2h3' {
     /**
      * Convert a single H3 hexagon to a GeoJSON `Polygon` feature
      */
-    export function h3ToFeature(h3Index: string, properties: GeoJsonProperties): Feature;
+    export function h3ToFeature(h3Index: string, properties?: GeoJsonProperties): Feature;
 
     /**
      * Convert a set of hexagons to a GeoJSON `Feature` with the set outline(s). The
      * feature's geometry type will be either `Polygon` or `MultiPolygon` depending on
      * the number of outlines required for the set.
      */
-    export function h3SetToFeature(hexagons: string[], properties: GeoJsonProperties): Feature;
+    export function h3SetToFeature(hexagons: string[], properties?: GeoJsonProperties): Feature;
 
     /**
      * Convert a set of hexagons to a GeoJSON `MultiPolygon` feature with the
@@ -27,7 +27,7 @@ declare module 'geojson2h3' {
      */
     export function h3SetToMultiPolygonFeature(
         hexagons: string[],
-        properties: GeoJsonProperties
+        properties?: GeoJsonProperties
     ): Feature;
 
     /**
@@ -36,6 +36,6 @@ declare module 'geojson2h3' {
      */
     export function h3SetToFeatureCollection(
         hexagons: string[],
-        getProperties: (h3Index: string) => GeoJsonProperties
+        getProperties?: (h3Index: string) => GeoJsonProperties
     ): FeatureCollection;
 }
