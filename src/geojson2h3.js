@@ -135,7 +135,7 @@ function featureToH3Set(feature, resolution, options = {}) {
             }
             // If we got no results, index the centroid
             const [lng, lat] = centroid(polygon);
-            return [h3.geoToH3(lng, lat, resolution)];
+            return [h3.geoToH3(lat, lng, resolution)];
         })
     );
 }

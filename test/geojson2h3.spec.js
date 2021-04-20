@@ -251,7 +251,7 @@ test('featureToH3Set - no contained hex centers', assert => {
 });
 
 test('featureToH3Set - no contained hex centers, ensureOutput', assert => {
-    const hexagons = ['88e35e6dbdfffff'];
+    const hexagons = ['8828308137fffff'];
     assert.deepEqual(
         featureToH3Set(SMALL_POLY, 8, {ensureOutput: true}),
         hexagons,
