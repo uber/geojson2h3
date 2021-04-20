@@ -46,7 +46,26 @@ function flatten(arrays) {
             out = arrays[i];
         }
     }
-    return out;
+    return Array.from(new Set(out));
+}
+
+/**
+ * Utility to compute the centroid of a polygon, based on @turf/centroid
+ * @private
+ * @param {Number[][][]} polygon     Polygon, as an array of loops
+ * @return {Number[]} lngLat         Lng/lat centroid
+ */
+function centroid(polygon) {
+    let lngSum = 0;
+    let latSum = 0;
+    let count = 0;
+    const loop = polygon[0];
+    for (let i = 0; i < loop.length; i++) {
+        lngSum += loop[i][0];
+        latSum += loop[i][1];
+        count++;
+    }
+    return [lngSum / count, latSum / count];
 }
 
 /**
@@ -74,15 +93,22 @@ function featureCollectionToH3Set(featureCollection, resolution) {
  * is lossy; the resulting hexagon set only approximately describes the original
  * shape, at a level of precision determined by the hexagon resolution.
  *
+ * If the polygon is small in comparison with the chosen resolution, there may be
+ * no cell whose center lies within it, resulting in an empty set. To fall back
+ * to a single H3 cell representing the centroid of the polygon in this case, use
+ * the `ensureOutput` option.
+ *
  * ![featureToH3Set](./doc-files/featureToH3Set.png)
  * @static
  * @param  {Object} feature     Input GeoJSON: type must be either `Feature` or
  *                              `FeatureCollection`, and geometry type must be
  *                              either `Polygon` or `MultiPolygon`
  * @param  {Number} resolution  Resolution of hexagons, between 0 and 15
+ * @param  {Boolean} [options.ensureOutput] Whether to ensure that at least one
+ *                              cell is returned in the set
  * @return {String[]}           H3 indexes
  */
-function featureToH3Set(feature, resolution) {
+function featureToH3Set(feature, resolution, options = {}) {
     const {type, geometry} = feature;
     const geometryType = geometry && geometry.type;
 
@@ -101,7 +127,17 @@ function featureToH3Set(feature, resolution) {
     const polygons = geometryType === POLYGON ? [geometry.coordinates] : geometry.coordinates;
 
     // Polyfill each polygon and flatten the results
-    return flatten(polygons.map(polygon => h3.polyfill(polygon, resolution, true)));
+    return flatten(
+        polygons.map(polygon => {
+            const result = h3.polyfill(polygon, resolution, true);
+            if (result.length || !options.ensureOutput) {
+                return result;
+            }
+            // If we got no results, index the centroid
+            const [lng, lat] = centroid(polygon);
+            return [h3.geoToH3(lng, lat, resolution)];
+        })
+    );
 }
 
 /**
