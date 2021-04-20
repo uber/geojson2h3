@@ -62,6 +62,11 @@ fall within the feature will be included.* Note that conversion from GeoJSON
 is lossy; the resulting hexagon set only approximately describes the original
 shape, at a level of precision determined by the hexagon resolution.
 
+If the polygon is small in comparison with the chosen resolution, there may be
+no cell whose center lies within it, resulting in an empty set. To fall back
+to a single H3 cell representing the centroid of the polygon in this case, use
+the `ensureOutput` option.
+
 ![featureToH3Set](./doc-files/featureToH3Set.png)
 
 **Kind**: static method of [<code>geojson2h3</code>](#module_geojson2h3)  
@@ -71,6 +76,7 @@ shape, at a level of precision determined by the hexagon resolution.
 | --- | --- | --- |
 | feature | <code>Object</code> | Input GeoJSON: type must be either `Feature` or                              `FeatureCollection`, and geometry type must be                              either `Polygon` or `MultiPolygon` |
 | resolution | <code>Number</code> | Resolution of hexagons, between 0 and 15 |
+| [options.ensureOutput] | <code>Boolean</code> | Whether to ensure that at least one                              cell is returned in the set |
 
 
 * * *
