@@ -229,26 +229,75 @@ test('featureToH3Set - one contained hex', assert => {
     assert.end();
 });
 
+const SMALL_POLY = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+        type: 'Polygon',
+        coordinates: [
+            [
+                [-122.26985598997341, 37.83598006884068],
+                [-122.26836960154117, 37.83702107154188],
+                [-122.26741606933939, 37.835426338014386],
+                [-122.26985598997341, 37.83598006884068]
+            ]
+        ]
+    }
+};
+
 test('featureToH3Set - no contained hex centers', assert => {
+    assert.deepEqual(featureToH3Set(SMALL_POLY, 8), [], 'featureToH3Set matches expected');
+    assert.end();
+});
+
+test('featureToH3Set - no contained hex centers, ensureOutput', assert => {
+    const hexagons = ['8828308137fffff'];
+    assert.deepEqual(
+        featureToH3Set(SMALL_POLY, 8, {ensureOutput: true}),
+        hexagons,
+        'featureToH3Set matches expected'
+    );
+    assert.end();
+});
+
+test('featureToH3Set - Polygon', assert => {
     const feature = {
         type: 'Feature',
         properties: {},
         geometry: {
             type: 'Polygon',
-            coordinates: [
-                [
-                    [-122.26985598997341, 37.83598006884068],
-                    [-122.26836960154117, 37.83702107154188],
-                    [-122.26741606933939, 37.835426338014386],
-                    [-122.26985598997341, 37.83598006884068]
-                ]
-            ]
+            coordinates: POLYGON
         }
     };
 
-    const hexagons = [];
+    const hexagons = ['89283081347ffff', '89283081343ffff', '8928308134fffff', '8928308137bffff'];
 
-    assert.deepEqual(featureToH3Set(feature, 8), hexagons, 'featureToH3Set matches expected');
+    assert.deepEqual(
+        featureToH3Set(feature, DEFAULT_RES).sort(),
+        hexagons.sort(),
+        'featureToH3Set matches expected'
+    );
+
+    assert.end();
+});
+
+test('featureToH3Set - MultiPolygon, duplicates', assert => {
+    const feature = {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+            type: 'MultiPolygon',
+            coordinates: [POLYGON, POLYGON]
+        }
+    };
+
+    const hexagons = ['89283081347ffff', '89283081343ffff', '8928308134fffff', '8928308137bffff'];
+
+    assert.deepEqual(
+        featureToH3Set(feature, DEFAULT_RES).sort(),
+        hexagons.sort(),
+        'featureToH3Set matches expected'
+    );
 
     assert.end();
 });

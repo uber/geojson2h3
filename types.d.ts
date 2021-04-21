@@ -7,7 +7,11 @@ declare module 'geojson2h3' {
      * is lossy; the resulting hexagon set only approximately describes the original
      * shape, at a level of precision determined by the hexagon resolution.
      */
-    export function featureToH3Set(feature: Feature, resolution: number): string[];
+    export function featureToH3Set(
+        feature: Feature | FeatureCollection,
+        resolution: number,
+        options?: {ensureOutput?: boolean}
+    ): string[];
 
     /**
      * Convert a single H3 hexagon to a GeoJSON `Polygon` feature

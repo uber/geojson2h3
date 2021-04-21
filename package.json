@@ -31,7 +31,7 @@
     "istanbul": "^0.4.3",
     "jsdoc": "^3.6.6",
     "jsdoc-to-markdown": "^6.0.1",
-    "prettier": "^1.12.1",
+    "prettier": "^1.19.1",
     "tape": "^4.8.0",
     "typescript": "^4.1.5"
   },
@@ -52,7 +52,7 @@
     "dist-test": "yarn dist && buble -i test -o dist/test",
     "benchmarks": "yarn dist-test && node dist/test/benchmarks.js",
     "prepublish": "yarn dist",
-    "prettier": "prettier --write --single-quote --no-bracket-spacing --print-width=100 'src/**/*.js' 'test/**/*.js' '*.d.ts'"
+    "prettier": "prettier --write 'src/**/*.js' 'test/**/*.js' '*.d.ts'"
   },
   "engines": {
     "node": ">=4",
