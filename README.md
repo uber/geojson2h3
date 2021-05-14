@@ -1,8 +1,11 @@
 # geojson2h3
 
-[![Build Status](https://travis-ci.com/uber/geojson2h3.svg?branch=master)](https://travis-ci.com/uber/geojson2h3) [![Coverage Status](https://coveralls.io/repos/github/uber/geojson2h3/badge.svg?branch=master)](https://coveralls.io/github/uber/geojson2h3?branch=master)
+[![test](https://github.com/uber/geojson2h3/workflows/test/badge.svg)](https://github.com/uber/geojson2h3/actions)
+[![Coverage Status](https://coveralls.io/repos/github/uber/geojson2h3/badge.svg?branch=master)](https://coveralls.io/github/uber/geojson2h3?branch=master)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![npm version](https://badge.fury.io/js/geojson2h3.svg)](https://badge.fury.io/js/geojson2h3)
 
-The `geojson2h3` library includes a set of utilities for conversion between GeoJSON polygons and [H3 hexagon indexes](https://uber.github.io/h3), using [h3-js](https://github.com/uber/h3-js).
+The `geojson2h3` library includes a set of utilities for conversion between GeoJSON polygons and [H3 hexagon indexes](https://h3geo.org), using [h3-js](https://github.com/uber/h3-js).
 
 -   Post **bug reports or feature requests** to the [Github Issues page](https://github.com/uber/geojson2h3/issues)
 -   Ask **questions** by posting to the [H3 tag on StackOverflow](https://stackoverflow.com/questions/tagged/h3)
