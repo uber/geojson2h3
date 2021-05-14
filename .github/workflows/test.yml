@@ -8,7 +8,7 @@ on:
 
 jobs:
   tests:
-    name: Test ${{ matrix.compiler }}
+    name: Test Node ${{ matrix.node_version }}
     runs-on: ubuntu-latest
 
     strategy:
