@@ -1,0 +1,35 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  tests:
+    name: Test Node ${{ matrix.node_version }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node_version: [10, 12, 14]
+
+    steps:
+      - uses: actions/checkout@v2.1.1
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '${{ matrix.node_version }}'
+
+      - name: Tests
+        run: |
+          yarn
+          yarn run dist-test
+          yarn test-ci
+          yarn cover
+
+      - uses: coverallsapp/github-action@master
+        with:
+          path-to-lcov: ./coverage/lcov.info
+          github-token: ${{ secrets.GITHUB_TOKEN }}
