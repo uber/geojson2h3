@@ -104,6 +104,7 @@ function featureCollectionToH3Set(featureCollection, resolution) {
  *                              `FeatureCollection`, and geometry type must be
  *                              either `Polygon` or `MultiPolygon`
  * @param  {Number} resolution  Resolution of hexagons, between 0 and 15
+ * @param  {Object} [options]   Options
  * @param  {Boolean} [options.ensureOutput] Whether to ensure that at least one
  *                              cell is returned in the set
  * @return {String[]}           H3 indexes
