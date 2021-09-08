@@ -51,7 +51,7 @@ const feature = geojson2h3.h3SetToFeature(hexagons);
 ## geojson2h3
 
 * [geojson2h3](#module_geojson2h3)
-    * [.featureToH3Set(feature, resolution)](#module_geojson2h3.featureToH3Set) ⇒ <code>Array.&lt;String&gt;</code>
+    * [.featureToH3Set(feature, resolution, [options])](#module_geojson2h3.featureToH3Set) ⇒ <code>Array.&lt;String&gt;</code>
     * [.h3ToFeature(hexAddress, [properties])](#module_geojson2h3.h3ToFeature) ⇒ <code>Feature</code>
     * [.h3SetToFeature(hexagons, [properties])](#module_geojson2h3.h3SetToFeature) ⇒ <code>Feature</code>
     * [.h3SetToMultiPolygonFeature(hexagons, [properties])](#module_geojson2h3.h3SetToMultiPolygonFeature) ⇒ <code>Feature</code>
@@ -62,7 +62,7 @@ const feature = geojson2h3.h3SetToFeature(hexagons);
 
 <a name="module_geojson2h3.featureToH3Set"></a>
 
-### geojson2h3.featureToH3Set(feature, resolution) ⇒ <code>Array.&lt;String&gt;</code>
+### geojson2h3.featureToH3Set(feature, resolution, [options]) ⇒ <code>Array.&lt;String&gt;</code>
 Convert a GeoJSON feature to a set of hexagons. *Only hexagons whose centers
 fall within the feature will be included.* Note that conversion from GeoJSON
 is lossy; the resulting hexagon set only approximately describes the original
@@ -82,6 +82,7 @@ the `ensureOutput` option.
 | --- | --- | --- |
 | feature | <code>Object</code> | Input GeoJSON: type must be either `Feature` or                              `FeatureCollection`, and geometry type must be                              either `Polygon` or `MultiPolygon` |
 | resolution | <code>Number</code> | Resolution of hexagons, between 0 and 15 |
+| [options] | <code>Object</code> | Options |
 | [options.ensureOutput] | <code>Boolean</code> | Whether to ensure that at least one                              cell is returned in the set |
 
 
