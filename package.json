@@ -17,7 +17,7 @@
   "es2015": "lib/geojson2h3.js",
   "types": "dist/types.d.ts",
   "dependencies": {
-    "h3-js": "^3.6.1"
+    "h3-js": "^4.4.0"
   },
   "devDependencies": {
     "@types/geojson": "^7946.0.7",
