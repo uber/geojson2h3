@@ -25,14 +25,14 @@ const suite = new Benchmark.Suite();
 // fixtures
 
 const h3Index = '89283080ddbffff';
-const ring50 = h3.kRing(h3Index, 50);
+const ring50 = h3.gridDisk(h3Index, 50);
 const ring50Feature = geojson2h3.h3SetToFeature(ring50, 9);
 const ring50Donuts = h3
-    .kRing(h3Index, 10)
-    .concat(h3.kRing(h3, 20))
-    .concat(h3.kRing(h3, 30))
-    .concat(h3.kRing(h3, 40))
-    .concat(h3.kRing(h3, 50));
+    .gridDisk(h3Index, 10)
+    .concat(h3.gridDisk(h3, 20))
+    .concat(h3.gridDisk(h3, 30))
+    .concat(h3.gridDisk(h3, 40))
+    .concat(h3.gridDisk(h3, 50));
 const ring50DonutsFeature = geojson2h3.h3SetToFeature(ring50Donuts, 9);
 
 // add tests
