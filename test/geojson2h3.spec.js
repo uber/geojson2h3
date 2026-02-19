@@ -158,7 +158,7 @@ test('Symmetrical - Empty', assert => {
 
 test('Symmetrical - One hexagon', assert => {
     const hexagons = ['89283082837ffff'];
-    const vertices = h3.h3ToGeoBoundary(hexagons[0], true);
+    const vertices = h3.cellToBoundary(hexagons[0], true);
     const feature = {
         type: 'Feature',
         properties: {},
@@ -400,7 +400,7 @@ test('featureToH3Set - FeatureCollection', assert => {
 
 test('featureToH3Set - resolution 10', assert => {
     const parentHex = '89283082837ffff';
-    const vertices = h3.h3ToGeoBoundary(parentHex, true);
+    const vertices = h3.cellToBoundary(parentHex, true);
     const feature = {
         type: 'Feature',
         properties: {},
@@ -421,7 +421,7 @@ test('featureToH3Set - resolution 10', assert => {
     };
     const resolution = 10;
 
-    const expected = h3.uncompact([parentHex], resolution).sort();
+    const expected = h3.uncompactCells([parentHex], resolution).sort();
 
     assert.equal(expected.length, 7, 'Got expected child hexagons');
 
@@ -590,7 +590,7 @@ test('h3SetToFeature - multi donut', assert => {
 
 test('h3SetToFeature - nested donut', assert => {
     const middle = '89283082877ffff';
-    const hexagons = h3.hexRing(middle, 1).concat(h3.hexRing(middle, 3));
+    const hexagons = h3.gridRing(middle, 1).concat(h3.gridRing(middle, 3));
     const feature = h3SetToFeature(hexagons);
     const coords = feature.geometry.coordinates;
 
@@ -620,7 +620,7 @@ test('h3SetToFeature - properties', assert => {
 
 test('h3ToFeature', assert => {
     const hexagon = '89283082837ffff';
-    const vertices = h3.h3ToGeoBoundary(hexagon, true);
+    const vertices = h3.cellToBoundary(hexagon, true);
     const feature = {
         id: hexagon,
         type: 'Feature',
