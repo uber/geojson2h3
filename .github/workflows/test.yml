@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: [10, 12, 14]
+        node_version: [14, 20, 22, 24]
 
     steps:
       - uses: actions/checkout@v6.0.2
@@ -30,6 +30,7 @@ jobs:
           yarn cover
 
       - uses: coverallsapp/github-action@master
+        if: ${{ matrix.node_version == '24' }}
         with:
           path-to-lcov: ./coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
