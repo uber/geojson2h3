@@ -30,6 +30,7 @@ jobs:
           yarn cover
 
       - uses: coverallsapp/github-action@master
+        if: ${{ matrix.node_version == '24' }}
         with:
           path-to-lcov: ./coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
