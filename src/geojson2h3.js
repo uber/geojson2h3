@@ -130,13 +130,13 @@ function featureToH3Set(feature, resolution, options = {}) {
     // Polyfill each polygon and flatten the results
     return flatten(
         polygons.map(polygon => {
-            const result = h3.polyfill(polygon, resolution, true);
+            const result = h3.polygonToCells(polygon, resolution, true);
             if (result.length || !options.ensureOutput) {
                 return result;
             }
             // If we got no results, index the centroid
             const [lng, lat] = centroid(polygon);
-            return [h3.geoToH3(lat, lng, resolution)];
+            return [h3.latLngToCell(lat, lng, resolution)];
         })
     );
 }
@@ -150,7 +150,7 @@ function featureToH3Set(feature, resolution, options = {}) {
  */
 function h3ToFeature(h3Index, properties = {}) {
     // Wrap in an array for a single-loop polygon
-    const coordinates = [h3.h3ToGeoBoundary(h3Index, true)];
+    const coordinates = [h3.cellToBoundary(h3Index, true)];
     return {
         type: FEATURE,
         id: h3Index,
@@ -174,7 +174,7 @@ function h3ToFeature(h3Index, properties = {}) {
  * @return {Feature}             GeoJSON Feature object
  */
 function h3SetToFeature(hexagons, properties = {}) {
-    const polygons = h3.h3SetToMultiPolygon(hexagons, true);
+    const polygons = h3.cellsToMultiPolygon(hexagons, true);
     // See if we can unwrap to a simple Polygon.
     const isMultiPolygon = polygons.length > 1;
     const type = isMultiPolygon ? MULTI_POLYGON : POLYGON;
@@ -203,7 +203,7 @@ function h3SetToFeature(hexagons, properties = {}) {
 function h3SetToMultiPolygonFeature(hexagons, properties = {}) {
     const coordinates = hexagons.map(h3Index =>
         // Wrap in an array for a single-loop polygon
-        [h3.h3ToGeoBoundary(h3Index, {geoJson: true})]
+        [h3.cellToBoundary(h3Index, true)]
     );
     return {
         type: FEATURE,
