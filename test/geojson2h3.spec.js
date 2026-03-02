@@ -451,7 +451,11 @@ test('featureToH3Set - point', assert => {
     };
     const resolution = 9;
 
-    assert.deepEqual(featureToH3Set(feature, resolution), ['89283082a47ffff'], 'featureToH3Set matches expected');
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff'],
+        'featureToH3Set matches expected'
+    );
     assert.end();
 });
 
@@ -466,7 +470,11 @@ test('featureToH3Set - point duplicates', assert => {
     };
     const resolution = 9;
 
-    assert.deepEqual(featureToH3Set(feature, resolution), ['89283082a47ffff'], 'featureToH3Set matches expected');
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff'],
+        'featureToH3Set matches expected'
+    );
     assert.end();
 });
 
@@ -481,7 +489,11 @@ test('featureToH3Set - multipoint', assert => {
     };
     const resolution = 9;
 
-    assert.deepEqual(featureToH3Set(feature, resolution), ['89283082a47ffff', '89283082a73ffff', '89283095a03ffff'], 'featureToH3Set matches expected');
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff', '89283082a73ffff', '89283095a03ffff'],
+        'featureToH3Set matches expected'
+    );
     assert.end();
 });
 

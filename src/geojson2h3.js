@@ -129,9 +129,9 @@ function featureToH3Set(feature, resolution, options = {}) {
         return [h3.latLngToCell(geometry.coordinates[1], geometry.coordinates[0], resolution)];
     }
     if (geometryType === MULTI_POINT) {
-        return flatten(geometry.coordinates.map(point =>
-            [h3.latLngToCell(point[1], point[0], resolution)]
-        ));
+        return flatten(
+            geometry.coordinates.map(point => [h3.latLngToCell(point[1], point[0], resolution)])
+        );
     }
 
     if (geometryType !== POLYGON && geometryType !== MULTI_POLYGON) {
