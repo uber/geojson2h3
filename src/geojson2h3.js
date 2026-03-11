@@ -24,6 +24,8 @@ const FEATURE = 'Feature';
 const FEATURE_COLLECTION = 'FeatureCollection';
 const POLYGON = 'Polygon';
 const MULTI_POLYGON = 'MultiPolygon';
+const POINT = 'Point';
+const MULTI_POINT = 'MultiPoint';
 
 // ----------------------------------------------------------------------------
 // Private utilities
@@ -102,7 +104,8 @@ function featureCollectionToH3Set(featureCollection, resolution) {
  * @static
  * @param  {Object} feature     Input GeoJSON: type must be either `Feature` or
  *                              `FeatureCollection`, and geometry type must be
- *                              either `Polygon` or `MultiPolygon`
+ *                              either `Polygon`, `MultiPolygon`, `Point`, or
+ *                              `MultiPoint`.
  * @param  {Number} resolution  Resolution of hexagons, between 0 and 15
  * @param  {Object} [options]   Options
  * @param  {Boolean} [options.ensureOutput] Whether to ensure that at least one
@@ -114,12 +117,23 @@ function featureToH3Set(feature, resolution, options = {}) {
     const geometryType = geometry && geometry.type;
 
     if (type === FEATURE_COLLECTION) {
+        // TODO: options are not passed here
         return featureCollectionToH3Set(feature, resolution);
     }
 
     if (type !== FEATURE) {
         throw new Error(`Unhandled type: ${type}`);
     }
+
+    if (geometryType === POINT) {
+        return [h3.latLngToCell(geometry.coordinates[1], geometry.coordinates[0], resolution)];
+    }
+    if (geometryType === MULTI_POINT) {
+        return flatten(
+            geometry.coordinates.map(point => [h3.latLngToCell(point[1], point[0], resolution)])
+        );
+    }
+
     if (geometryType !== POLYGON && geometryType !== MULTI_POLYGON) {
         throw new Error(`Unhandled geometry type: ${geometryType}`);
     }

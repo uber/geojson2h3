@@ -89,6 +89,12 @@ const POLYGON_NONCONTIGUOUS = [
         [-122.23511849129424, 37.829458676659385]
     ]
 ];
+const POINT = [-122.3876435, 37.79025884];
+const MULTI_POINT = [
+    [-122.3876435, 37.79025884],
+    [-122.3912349, 37.79158595],
+    [-122.4672099, 37.76976547]
+];
 
 function toLowPrecision(maybeNumber) {
     if (typeof maybeNumber === 'number') {
@@ -431,6 +437,63 @@ test('featureToH3Set - resolution 10', assert => {
         'featureToH3Set matches expected'
     );
 
+    assert.end();
+});
+
+test('featureToH3Set - point', assert => {
+    const feature = {
+        type: 'Feature',
+        geometry: {
+            type: 'Point',
+            coordinates: POINT
+        },
+        properties: {}
+    };
+    const resolution = 9;
+
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff'],
+        'featureToH3Set matches expected'
+    );
+    assert.end();
+});
+
+test('featureToH3Set - point duplicates', assert => {
+    const feature = {
+        type: 'Feature',
+        geometry: {
+            type: 'MultiPoint',
+            coordinates: [POINT, POINT]
+        },
+        properties: {}
+    };
+    const resolution = 9;
+
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff'],
+        'featureToH3Set matches expected'
+    );
+    assert.end();
+});
+
+test('featureToH3Set - multipoint', assert => {
+    const feature = {
+        type: 'Feature',
+        geometry: {
+            type: 'MultiPoint',
+            coordinates: MULTI_POINT
+        },
+        properties: {}
+    };
+    const resolution = 9;
+
+    assert.deepEqual(
+        featureToH3Set(feature, resolution),
+        ['89283082a47ffff', '89283082a73ffff', '89283095a03ffff'],
+        'featureToH3Set matches expected'
+    );
     assert.end();
 });
 

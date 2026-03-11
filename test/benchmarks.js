@@ -34,6 +34,15 @@ const ring50Donuts = h3
     .concat(h3.gridDisk(h3, 40))
     .concat(h3.gridDisk(h3, 50));
 const ring50DonutsFeature = geojson2h3.h3SetToFeature(ring50Donuts, 9);
+const indexCentroid = h3.cellToLatLng(h3Index);
+const pointFeature = {
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: [indexCentroid[1], indexCentroid[0]]
+    },
+    properties: {}
+};
 
 // add tests
 
@@ -51,6 +60,10 @@ suite.add('featureToH3Set - ring50', () => {
 
 suite.add('featureToH3Set - ring50Donuts', () => {
     geojson2h3.featureToH3Set(ring50DonutsFeature, 9);
+});
+
+suite.add('featureToH3Set - point', () => {
+    geojson2h3.featureToH3Set(pointFeature, 9);
 });
 
 // add listeners

@@ -80,7 +80,7 @@ the `ensureOutput` option.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| feature | <code>Object</code> | Input GeoJSON: type must be either `Feature` or                              `FeatureCollection`, and geometry type must be                              either `Polygon` or `MultiPolygon` |
+| feature | <code>Object</code> | Input GeoJSON: type must be either `Feature` or                              `FeatureCollection`, and geometry type must be                              either `Polygon`, `MultiPolygon`, `Point`, or                              `MultiPoint`. |
 | resolution | <code>Number</code> | Resolution of hexagons, between 0 and 15 |
 | [options] | <code>Object</code> | Options |
 | [options.ensureOutput] | <code>Boolean</code> | Whether to ensure that at least one                              cell is returned in the set |
