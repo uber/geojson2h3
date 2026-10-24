@@ -60,12 +60,15 @@ function flatten(arrays) {
 function centroid(polygon) {
     let lngSum = 0;
     let latSum = 0;
-    let count = 0;
     const loop = polygon[0];
-    for (let i = 0; i < loop.length; i++) {
+    let count = loop.length;
+    // A closed ring repeats its first vertex; count it only once.
+    if (count > 1 && loop[0][0] === loop[count - 1][0] && loop[0][1] === loop[count - 1][1]) {
+        count--;
+    }
+    for (let i = 0; i < count; i++) {
         lngSum += loop[i][0];
         latSum += loop[i][1];
-        count++;
     }
     return [lngSum / count, latSum / count];
 }

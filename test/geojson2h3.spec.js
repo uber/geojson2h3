@@ -266,6 +266,42 @@ test('featureToH3Set - no contained hex centers, ensureOutput', assert => {
     assert.end();
 });
 
+test('featureToH3Set - centroid fallback ignores the closing vertex', assert => {
+    const vertices = [
+        [-122.3952, 37.79759],
+        [-122.395, 37.79759],
+        [-122.395, 37.79779],
+        [-122.3952, 37.79779]
+    ];
+    const expected = [h3.latLngToCell(37.79769, -122.3951, 8)];
+
+    for (let i = 0; i < vertices.length; i++) {
+        const ring = vertices.slice(i).concat(vertices.slice(0, i));
+        const feature = {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+                type: 'Polygon',
+                coordinates: [[...ring, ring[0]]]
+            }
+        };
+
+        assert.deepEqual(featureToH3Set(feature, 8), [], 'polygon contains no cell centers');
+        assert.deepEqual(
+            featureToH3Set(feature, 8, {ensureOutput: true}),
+            expected,
+            'fallback is independent of the first vertex of a closed ring'
+        );
+        feature.geometry.coordinates = [ring];
+        assert.deepEqual(
+            featureToH3Set(feature, 8, {ensureOutput: true}),
+            expected,
+            'an unclosed ring counts every vertex'
+        );
+    }
+    assert.end();
+});
+
 test('featureToH3Set - Polygon', assert => {
     const feature = {
         type: 'Feature',
