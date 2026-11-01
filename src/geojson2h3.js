@@ -74,16 +74,17 @@ function centroid(polygon) {
  * Convert a GeoJSON feature collection to a set of hexagons. Only hexagons whose centers
  * fall within the features will be included.
  * @private
- * @param  {Object} feature     GeoJSON FeatureCollection
+ * @param  {Object} featureCollection GeoJSON FeatureCollection
  * @param  {Number} resolution  Resolution of hexagons, between 0 and 15
+ * @param  {Object} options     Options passed to each feature conversion
  * @return {String[]}           H3 indexes
  */
-function featureCollectionToH3Set(featureCollection, resolution) {
+function featureCollectionToH3Set(featureCollection, resolution, options) {
     const {features} = featureCollection;
     if (!features) {
         throw new Error('No features found');
     }
-    return flatten(features.map(feature => featureToH3Set(feature, resolution)));
+    return flatten(features.map(feature => featureToH3Set(feature, resolution, options)));
 }
 
 // ----------------------------------------------------------------------------
@@ -117,8 +118,7 @@ function featureToH3Set(feature, resolution, options = {}) {
     const geometryType = geometry && geometry.type;
 
     if (type === FEATURE_COLLECTION) {
-        // TODO: options are not passed here
-        return featureCollectionToH3Set(feature, resolution);
+        return featureCollectionToH3Set(feature, resolution, options);
     }
 
     if (type !== FEATURE) {

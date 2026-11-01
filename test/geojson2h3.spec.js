@@ -266,6 +266,31 @@ test('featureToH3Set - no contained hex centers, ensureOutput', assert => {
     assert.end();
 });
 
+test('featureToH3Set - FeatureCollection, ensureOutput', assert => {
+    const collection = {
+        type: 'FeatureCollection',
+        features: [SMALL_POLY, SMALL_POLY]
+    };
+
+    assert.deepEqual(featureToH3Set(collection, 8), [], 'default behavior is unchanged');
+    assert.deepEqual(
+        featureToH3Set(collection, 8, {ensureOutput: false}),
+        [],
+        'explicitly disabling the fallback is unchanged'
+    );
+    assert.deepEqual(
+        featureToH3Set(collection, 8, {ensureOutput: true}),
+        featureToH3Set(SMALL_POLY, 8, {ensureOutput: true}),
+        'collection forwards options and deduplicates fallback cells'
+    );
+    assert.deepEqual(
+        featureToH3Set({type: 'FeatureCollection', features: []}, 8, {ensureOutput: true}),
+        [],
+        'an empty collection has no fallback cells'
+    );
+    assert.end();
+});
+
 test('featureToH3Set - Polygon', assert => {
     const feature = {
         type: 'Feature',
